@@ -78,6 +78,7 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
   try {
+    console.log("In logout controller");
     res.cookie("jwt", "", { maxAge: 0 });
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
@@ -100,7 +101,7 @@ export const getMe = async (req, res) => {
     const token = req.cookies.jwt;
 
     if (!token) {
-      return res.status(401).json({ error: "Not authorized, no token" });
+      return; // not logged in
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
