@@ -17,12 +17,15 @@ function LoginPage() {
   const { mutate: login, isPending } = useMutation({
     mutationFn: async ({ email, password }) => {
       try {
+        console.log("In login mutationFn");
+
         const res = await fetch("/api/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email, password }),
+          credentials: "include",
         });
 
         const data = await res.json();

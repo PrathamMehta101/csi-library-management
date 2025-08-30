@@ -9,7 +9,7 @@ function CatalogPage() {
   const [sort, setSort] = useState("");
 
   const { data: books, isLoading } = useQuery({
-    queryKey: ["books", search, category, sort],
+    queryKey: ["books", { search, category, sort }],
     queryFn: async () => {
       try {
         const res = await fetch(

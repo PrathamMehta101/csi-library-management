@@ -80,12 +80,13 @@ function Navbar() {
           {/* Auth Button */}
           <div>
             {authUser ? (
-              <button
-                onClick={logout}
-                className="px-4 py-2 bg-indigo-600 text-white rounded-xl shadow hover:bg-indigo-700 transition"
-              >
-                Logout
-              </button>
+              <Link to="/user/dashboard">
+                <img
+                  src="/avatar3.jpg"
+                  alt="Profile"
+                  className="w-10 h-10 rounded-full border-2 border-indigo-600 shadow-md hover:scale-105 transition"
+                />
+              </Link>
             ) : (
               <Link
                 to="/login"

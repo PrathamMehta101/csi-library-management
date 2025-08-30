@@ -8,6 +8,8 @@ const bookSchema = new mongoose.Schema(
     description: { type: String, trim: true },
     totalCopies: { type: Number, required: true, min: 1 },
     availableCopies: { type: Number, required: true, min: 0 },
+    pendingReservations: { type: Number, required: true, min: 0, default: 0 },
+
     metadata: {
       publisher: String,
       publishedDate: Date,
@@ -16,7 +18,7 @@ const bookSchema = new mongoose.Schema(
     },
     pdfUrl: { type: String }, // optional: for free e-books
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 const Book = mongoose.model("Book", bookSchema);

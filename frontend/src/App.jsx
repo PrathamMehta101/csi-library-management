@@ -7,6 +7,8 @@ import CatalogPage from "./pages/CatalogPage";
 import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router";
 import { useQuery } from "@tanstack/react-query";
+import BookPage from "./pages/BookPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const { data: authUser } = useQuery({
@@ -44,10 +46,14 @@ function App() {
           path="/catalog"
           element={authUser ? <CatalogPage /> : <SignUpPage />}
         />
-        {/* <Route
+        <Route
           path="/catalog/:bookId"
           element={authUser ? <BookPage /> : <SignUpPage />}
-        /> */}
+        />
+        <Route
+          path="/user/dashboard"
+          element={authUser ? <ProfilePage /> : <LoginPage />}
+        />
       </Routes>
 
       <Toaster />

@@ -39,12 +39,22 @@ export const getBookById = async (req, res) => {
     const book = await Book.findById(bookId);
     if (!book) return res.status(404).json({ error: "Book not found" });
 
-    const activeReservations = await Reservation.find({
+    // number of people who currently have the book
+    const activeReservations = await Reservation.countDocuments({
       bookId,
       status: "active",
     });
 
-    res.json({ book, activeReservations });
+    const pendingReservations = await Reservation.countDocuments({
+      bookId,
+      status: "pending",
+    });
+
+    book.availableCopies = book.totalCopies - activeReservations;
+    book.pendingReservations = pendingReservations;
+
+    await book.save();
+    res.json(book);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
     console.log("Error in getBookById controller", error.message);
