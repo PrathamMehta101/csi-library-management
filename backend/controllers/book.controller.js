@@ -39,7 +39,6 @@ export const getBookById = async (req, res) => {
     const book = await Book.findById(bookId);
     if (!book) return res.status(404).json({ error: "Book not found" });
 
-    // number of people who currently have the book
     const activeReservations = await Reservation.countDocuments({
       bookId,
       status: "active",

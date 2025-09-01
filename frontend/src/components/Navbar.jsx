@@ -9,12 +9,9 @@ function Navbar() {
     queryKey: ["authUser"],
     queryFn: async () => {
       try {
-        const res = await fetch("/api/auth/me", {
-          method: "GET",
-        });
+        const res = await fetch("/api/auth/me", { method: "GET" });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Something went wrong");
-
         return data;
       } catch (error) {
         throw new Error(error);
@@ -70,23 +67,31 @@ function Navbar() {
               Catalog
             </Link>
             <Link
-              to="/about"
+              to="/ebooks"
               className="text-gray-700 hover:text-indigo-600 transition"
             >
-              About
+              Ebooks
             </Link>
           </div>
 
-          {/* Auth Button */}
-          <div>
+          {/* User actions */}
+          <div className="flex items-center space-x-4">
             {authUser ? (
-              <Link to="/user/dashboard">
-                <img
-                  src="/avatar3.jpg"
-                  alt="Profile"
-                  className="w-10 h-10 rounded-full border-2 border-indigo-600 shadow-md hover:scale-105 transition"
-                />
-              </Link>
+              <>
+                <Link to="/user/dashboard">
+                  <img
+                    src="/avatar3.jpg"
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full border-2 border-indigo-600 shadow-md hover:scale-105 transition"
+                  />
+                </Link>
+                <button
+                  onClick={() => logout()}
+                  className="px-3 py-1 bg-indigo-500 text-white rounded-lg shadow hover:bg-indigo-600 transition"
+                >
+                  Logout
+                </button>
+              </>
             ) : (
               <Link
                 to="/login"
@@ -101,4 +106,5 @@ function Navbar() {
     </nav>
   );
 }
+
 export default Navbar;

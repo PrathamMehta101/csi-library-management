@@ -9,6 +9,8 @@ import { Route, Routes } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import BookPage from "./pages/BookPage";
 import ProfilePage from "./pages/ProfilePage";
+import EBookPage from "./pages/EBookPage";
+import UploadEbookPage from "./pages/UploadEbookPage";
 
 function App() {
   const { data: authUser } = useQuery({
@@ -54,6 +56,9 @@ function App() {
           path="/user/dashboard"
           element={authUser ? <ProfilePage /> : <LoginPage />}
         />
+
+        <Route path="/ebooks" element={<EBookPage />} />
+        <Route path="/ebooks/upload" element={<UploadEbookPage />} />
       </Routes>
 
       <Toaster />
